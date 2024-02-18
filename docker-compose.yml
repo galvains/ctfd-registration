@@ -1,0 +1,19 @@
+services:
+  application:
+    build:
+      context: .
+    ports:
+      - 5001:5000
+    volumes:
+      - ./core:/core
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+  db:
+    image: mariadb:10.4.12
+    env_file:
+      - .env
+    volumes:
+      - ./core/data:/var/lib/mysql

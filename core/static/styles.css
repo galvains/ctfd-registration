@@ -1,0 +1,152 @@
+body {
+    background: linear-gradient(to top, #cc4d4c, #414141);
+    color: white;
+    min-height: 100vh;
+    height: auto;
+    font-family: 'Arial', sans-serif;
+}
+
+.main {
+    top: 50%;
+    left: 50%;
+    width: 35%;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 20px;
+    padding-top: 0;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.face-main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35%;
+    margin: auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.logo img {
+    width: 50%;
+    margin: 0 auto;
+    display: block;
+}
+
+.category-header {
+    background-color: #2e2e2e;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.registration-form {
+    margin-top: 20px;
+}
+
+label {
+    font-weight: bold;
+    background-color: #2e2e2e;
+    padding: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.participant label {
+    font-weight: bold;
+    color: white;
+    padding: 10px;
+    overflow: hidden;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    box-sizing: border-box;
+    border: 2px solid #2e2e2e;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+button {
+    background-color: #cc4d4d;
+    color: white;
+    border: none;
+    padding: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    transition: 0.2s;
+    background-color: #a63b3b;
+}
+
+.h-captcha {
+    margin-top: 20px;
+}
+
+.participant-section {
+    margin-top: 20px;
+}
+
+.participant {
+    background-color: #2e2e2e;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.remove-participant {
+    color: #cc4d4d;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.remove-participant:hover {
+    text-decoration: underline;
+}
+
+h2, h3, div[style="color: #ffffff"] {
+    background-color: #2e2e2e;
+    color: white;
+    padding: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    overflow: hidden;
+}
+
+.captain-contact {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flash {
+    color: #cc4d4d;
+    background-color: #ffe5e5;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 2px solid #cc4d4d;
+    border-radius: 10px;
+
+}

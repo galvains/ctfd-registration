@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizmine - игроки</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+</head>
+<body>
+<main class="main">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='register.png') }}" alt="logo">
+    </div>
+    <h3>Регистрация участников команды (без капитана)</h3>
+    <form class="registration-form" method="post">
+        <div class="participant-section" id="participantsSection">
+            <div class="participant">
+                <br>
+                <label for="participant_email">Email участника:</label>
+                <input type="email" id="participant_email" name="participant_email[]" required>
+
+                <span class="remove-participant" onclick="removeParticipant(this)">Удалить участника</span>
+                <br>
+            </div>
+        </div>
+
+        <button type="button" onclick="addParticipant()" style="width: 200px; margin: auto">Добавить участника</button>
+        <br>
+        <br>
+        <hr>
+
+
+        <div class="h-captcha" data-sitekey="ee7a1e3d-5717-40fd-aea4-afb926d4ae45"></div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p class='flash'>{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <button class="challenge-submit" type="submit">Зарегистрироваться</button>
+        <br>
+    </form>
+</main>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizmine - капитан</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+</head>
+<body>
+<main class="main">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='register.png') }}" alt="logo">
+    </div>
+    <h3>Регистрация капитана</h3>
+    <form class="registration-form" method="post">
+        {{ form.csrf_token }}
+        <p>
+            {{ form.name.label }}
+            {{ form.name }}
+        </p>
+
+        <p>
+            {{ form.email.label }}
+            {{ form.email }}
+        </p>
+
+        <p>
+            {{ form.website.label }}
+            {{ form.website() }}
+        </p>
+        <hr>
+
+        <div class="h-captcha" data-sitekey="ee7a1e3d-5717-40fd-aea4-afb926d4ae45"></div>
+
+
+        {% if form.website.errors %}
+        {% for error in form.website.errors %}
+        <p style="color: red;">Некорректный формат тега!</p>
+        {% endfor %}
+        {% endif %}
+
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+            <p class='flash'>{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <button class="challenge-submit" type="submit">Продолжить</button>
+        <br>
+    </form>
+
+</main>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
