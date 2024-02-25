@@ -1,5 +1,6 @@
 import os
 import base64
+import urllib.parse
 
 from typing import Callable
 
@@ -26,7 +27,8 @@ def favicon():
 
 @app.route('/success')
 def success():
-    return render_template('success.html', message='Вы успешно зарегистрировались!')
+    return render_template('success.html',
+                           message='Вы успешно зарегистрировались!\nПисьмо с инструкцией выслано на почту.')
 
 
 @app.errorhandler(404)
@@ -73,6 +75,7 @@ def register_captain():
                     type="user"
                 )
                 __data = Pages(
+                    username=form.name.data,
                     email=form.email.data,
                     data=password
                 )
@@ -81,8 +84,9 @@ def register_captain():
                 session.add(__data)
                 session.commit()
 
-                username = base64.b64encode(form.name.data.encode()).decode()
+                username = base64.b64encode(urllib.parse.quote_plus(form.name.data).encode()).decode()
                 email = base64.b64encode(form.email.data.encode()).decode()
+
                 return redirect(url_for('create_team', username=username, email=email))
             elif valid_email:
                 flash("Пользователь с такой почтой уже существует!")
@@ -98,7 +102,8 @@ def create_team(username: base64, email: base64):
     form = TeamRegister()
     captcha = request.form.get("g-recaptcha-response")
     result_captcha = verify_hcaptcha(captcha)
-    dec_username = base64.b64decode(username).decode()
+
+    dec_username = urllib.parse.unquote_plus(base64.b64decode(username).decode())
 
     if form.validate_on_submit():
         with session_factory() as session:
@@ -129,7 +134,8 @@ def create_team(username: base64, email: base64):
                 session.execute(admin_update)
                 session.commit()
 
-                team_name = base64.b64encode(form.team_name.data.encode()).decode()
+                team_name = base64.b64encode(urllib.parse.quote_plus(form.team_name.data).encode()).decode()
+
                 return redirect(url_for('add_users', team_id=tmp_team_id, team_name=team_name, email=email))
             elif valid_team_name:
                 flash("Команда с таким названием уже существует!")
@@ -149,7 +155,7 @@ def add_users(team_id: int, email: base64, team_name: base64):
         user_email_list = request.form.getlist('participant_email[]')
 
         dec_email = base64.b64decode(email).decode()
-        dec_team_name = base64.b64decode(team_name).decode()
+        dec_team_name = urllib.parse.unquote_plus(base64.b64decode(team_name).decode())
 
         valid_email_flag = True
         valid_unique_emails = True
@@ -188,6 +194,7 @@ def add_users(team_id: int, email: base64, team_name: base64):
                     )
 
                     __data = Pages(
+                        username=username,
                         email=user_email_list[user],
                         data=password
                     )
@@ -201,7 +208,7 @@ def add_users(team_id: int, email: base64, team_name: base64):
                            f"Ваша команда {dec_team_name} была успешно зарегистрирована на квиз-турнир Quizmine.\n"
                            f"Капитан: {dec_email}\n"
                            f"Список участников: {user_email_list}\n"
-                           f"Ожидайте письмо для дальнейших действий 15.03.2023\n\n"
+                           f"15.03.2023 будет отправлено письмо всем участникам команды с данными для входа в профиль Quizmine\n\n"
                            f"С уважением, Quizmine team."
                            )
 

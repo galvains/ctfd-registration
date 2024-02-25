@@ -17,3 +17,4 @@ services:
       - .env
     volumes:
       - ./core/data:/var/lib/mysql
+      - ./conf/mariadb.cnf:/etc/mysql/mariadb.cnf
