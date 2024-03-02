@@ -16,7 +16,7 @@
     <div class="face-text">
         <h3>Регистрация команды</h3>
     </div>
-    
+
     <form class="registration-form" method="post">
         {{ form.csrf_token }}
         <p>
@@ -48,6 +48,11 @@
         <button class="challenge-submit" type="submit">Продолжить</button>
         <br>
     </form>
+    <br>
+    <div class="footer-links">
+        <a href="https://t.me/+4G2raofADbw0OGMy" target="_blank">Техническая поддержка</a>
+        <a href="https://disk.yandex.ru/i/sYVlnTStFwvBaw" target="_blank">Положение о мероприятии</a>
+    </div>
 </main>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>

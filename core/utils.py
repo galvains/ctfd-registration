@@ -1,4 +1,5 @@
 import os
+import re
 import smtplib
 import secrets
 import requests
@@ -60,3 +61,7 @@ def verify_hcaptcha(user_response):
     response = requests.post(CAPTCHA_URL, data=params)
     result = response.json()
     return result["success"]
+
+
+def valid_symbols(username: str) -> bool:
+    return bool(re.match(r"^[\s\w.@+-]+\Z", username))

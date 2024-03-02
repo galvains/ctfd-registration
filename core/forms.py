@@ -9,7 +9,7 @@ class CaptainRegister(FlaskForm):
     full_name = StringField('ФИО', validators=[InputRequired(), Length(min=3, max=256)],
                        render_kw={"placeholder": "Иванов Иван Иванович"})
     email = EmailField('Почта', validators=[InputRequired(), Email()], render_kw={"placeholder": "name@gmail.com"})
-    website = StringField('ТГ/ВК тег', validators=[InputRequired(), URL()],
+    website = StringField('Ссылка на ТГ/ВК', validators=[InputRequired(), URL()],
                           render_kw={"placeholder": "https://t.me/..."})
 
 

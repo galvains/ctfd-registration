@@ -22,9 +22,11 @@ function addParticipant() {
 
         if (field == '_full_name'){
             input.type = 'text';
+            input.placeholder="Иванов Иван Иванович";
         }
         else {
             input.type = 'email';
+            input.placeholder="name@gmail.com";
         }
 
         input.id = `participant${field}`;
