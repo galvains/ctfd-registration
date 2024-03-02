@@ -28,7 +28,9 @@ def favicon():
 @app.route('/success')
 def success():
     return render_template('success.html',
-                           message='Вы успешно зарегистрировались!\nПисьмо с инструкцией выслано на почту.')
+                           message=f'Регистрация прошла успешно! Письмо с дальнейшей инструкцией отправлено на Вашу '
+                                   f'почту. Иногда оно попадает в спам, потому советуем проверить этот раздел. '
+                                   f'При возникновении проблем обращайтесь в беседу для обратной связи.')
 
 
 @app.errorhandler(404)
@@ -48,8 +50,9 @@ def page_not_found(e):
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template('home.html',
-                           message='Это регистрация на событие Quizmine, было бы неплохо написать здесь более осмысленный текст...')
+    return render_template('home.html', message=f'Научим искать любую информацию и отвечать на самые трудные вопросы. '
+                                                f'Вам понадобится только поисковая строка браузера, дополненная '
+                                                f'собственной смекалкой.')
 
 
 @app.route('/register-captain', methods=['GET', 'POST'])
@@ -60,7 +63,7 @@ def register_captain():
 
     if form.validate_on_submit():
         with session_factory() as session:
-            valid_name = session.query(Users).filter_by(name=form.name.data).first()
+            valid_name = session.query(Users).filter_by(name=form.username.data).first()
             valid_email = session.query(Users).filter_by(email=form.email.data).first()
             if not valid_email and not valid_name and result_captcha:
 
@@ -68,14 +71,15 @@ def register_captain():
                 hashed_password = bcrypt_sha256.hash(str(password))
 
                 user = Users(
-                    name=form.name.data,
+                    name=form.username.data,
                     password=hashed_password,
                     email=form.email.data,
                     website=form.website.data,
                     type="user"
                 )
                 __data = Pages(
-                    username=form.name.data,
+                    username=form.username.data,
+                    full_name=form.full_name.data,
                     email=form.email.data,
                     data=password
                 )
@@ -84,7 +88,7 @@ def register_captain():
                 session.add(__data)
                 session.commit()
 
-                username = base64.b64encode(urllib.parse.quote_plus(form.name.data).encode()).decode()
+                username = base64.b64encode(urllib.parse.quote_plus(form.username.data).encode()).decode()
                 email = base64.b64encode(form.email.data.encode()).decode()
 
                 return redirect(url_for('create_team', username=username, email=email))
@@ -153,6 +157,7 @@ def add_users(team_id: int, email: base64, team_name: base64):
         result_captcha = verify_hcaptcha(captcha)
 
         user_email_list = request.form.getlist('participant_email[]')
+        user_full_name_list = request.form.getlist('participant_full_name[]')
 
         dec_email = base64.b64decode(email).decode()
         dec_team_name = urllib.parse.unquote_plus(base64.b64decode(team_name).decode())
@@ -195,6 +200,7 @@ def add_users(team_id: int, email: base64, team_name: base64):
 
                     __data = Pages(
                         username=username,
+                        full_name=user_full_name_list[user],
                         email=user_email_list[user],
                         data=password
                     )
@@ -203,14 +209,8 @@ def add_users(team_id: int, email: base64, team_name: base64):
                     session.add(__data)
                     session.commit()
 
-                send_email(dec_email,
-                           "Регистрация Quizmine",
-                           f"Ваша команда {dec_team_name} была успешно зарегистрирована на квиз-турнир Quizmine.\n"
-                           f"Капитан: {dec_email}\n"
-                           f"Список участников: {user_email_list}\n"
-                           f"15.03.2023 будет отправлено письмо всем участникам команды с данными для входа в профиль Quizmine\n\n"
-                           f"С уважением, Quizmine team."
-                           )
+                context = {'captain_email': dec_email, 'users_list': user_email_list, 'team_name': dec_team_name}
+                send_email(recipient=dec_email, context=context, selection=True)
 
                 return redirect(url_for('success'))
             elif not result_captcha:

@@ -9,6 +9,7 @@ function addParticipant() {
     participantDiv.className = 'participant';
 
     const participantFields = new Map();
+    participantFields.set('_full_name', 'ФИО участника:');
     participantFields.set('_email', 'Email участника:');
 
     participantDiv.appendChild(document.createElement('br'));
@@ -18,7 +19,13 @@ function addParticipant() {
         label.textContent = `${value}`;
 
         const input = document.createElement('input');
-        input.type = 'email';
+
+        if (field == '_full_name'){
+            input.type = 'text';
+        }
+        else {
+            input.type = 'email';
+        }
 
         input.id = `participant${field}`;
         input.name = `participant${field}[]`;

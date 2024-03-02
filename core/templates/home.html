@@ -12,8 +12,9 @@
     <div class="logo">
         <img src="{{ url_for('static', filename='register.png') }}" alt="logo">
     </div>
-
-    <h3 style="display: block;">{{ message }}</h3>
+    <div class="face-text">
+        <h4>{{ message }}</h4>
+    </div>
     <br>
     <a href="{{ url_for ('register_captain') }}">
         <button>

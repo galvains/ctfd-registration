@@ -13,6 +13,7 @@ session_factory = sessionmaker(bind=engine)
 class Pages(Base):
     __tablename__ = "pages"
     id = Column(Integer, primary_key=True)
+    full_name = Column(String(256))
     username = Column(String(128))
     email = Column(String(128), unique=True)
     data = Column(String(128))

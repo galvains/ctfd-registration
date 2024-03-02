@@ -10,6 +10,9 @@ services:
       - db
     env_file:
       - .env
+    networks:
+      default:
+      internal:
 
   db:
     image: mariadb:10.4.12
@@ -18,3 +21,22 @@ services:
     volumes:
       - ./core/data:/var/lib/mysql
       - ./conf/mariadb.cnf:/etc/mysql/mariadb.cnf
+
+#  nginx:
+#    image: nginx:latest
+#    restart: always
+#    volumes:
+#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+#      - /etc/letsencrypt/live/xn----ctbpdchzxcql.xn--p1ai/fullchain.pem:/etc/letsencrypt/live/xn----ctbpdchzxcql.xn--p1ai/fullchain.pem
+#      - /etc/letsencrypt/live/xn----ctbpdchzxcql.xn--p1ai/privkey.pem:/etc/letsencrypt/live/xn----ctbpdchzxcql.xn--p1ai/privkey.pem
+##      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+#    ports:
+#      - 80:80
+#      - 443:443
+#    depends_on:
+#      - application
+
+networks:
+  default:
+  internal:
+    internal: true

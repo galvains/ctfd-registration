@@ -18,6 +18,7 @@ mysql-connector-python==8.3.0
 packaging==23.2
 passlib==1.7.4
 PyMySQL==1.1.0
+python-dotenv==1.0.1
 requests==2.31.0
 SQLAlchemy==2.0.26
 typing_extensions==4.9.0

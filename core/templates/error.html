@@ -13,8 +13,12 @@
         <img src="{{ url_for('static', filename='register.png') }}" alt="logo">
     </div>
 
-    <h2 style="color: #cc4d4d; display: block; padding: 20px;">{{ message }}</h2>
+    <div class="face-text">
+        <h2 style="color: #cc4d4d;">{{ message }}</h2>
+    </div>
+
     <br>
+
     <a href="{{ url_for ('home') }}">
         <button>
             На главную

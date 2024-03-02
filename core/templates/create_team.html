@@ -12,7 +12,11 @@
     <div class="logo">
         <img src="{{ url_for('static', filename='register.png') }}" alt="logo">
     </div>
-    <h3>Регистрация команды</h3>
+
+    <div class="face-text">
+        <h3>Регистрация команды</h3>
+    </div>
+    
     <form class="registration-form" method="post">
         {{ form.csrf_token }}
         <p>

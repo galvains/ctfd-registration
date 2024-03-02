@@ -12,11 +12,18 @@
     <div class="logo">
         <img src="{{ url_for('static', filename='register.png') }}" alt="logo">
     </div>
-    <h3>Регистрация участников команды (без капитана)</h3>
+
+    <div class="face-text">
+        <h3>Регистрация участников команды (без капитана)</h3>
+    </div>
+
     <form class="registration-form" method="post">
         <div class="participant-section" id="participantsSection">
             <div class="participant">
                 <br>
+                <label for="participant_full_name">ФИО участника:</label>
+                <input type="text" id="participant_full_name" name="participant_full_name[]" required>
+
                 <label for="participant_email">Email участника:</label>
                 <input type="email" id="participant_email" name="participant_email[]" required>
 
@@ -25,7 +32,7 @@
             </div>
         </div>
 
-        <button type="button" onclick="addParticipant()" style="width: 200px; margin: auto">Добавить участника</button>
+        <button type="button" onclick="addParticipant()">Добавить участника</button>
         <br>
         <br>
         <hr>
