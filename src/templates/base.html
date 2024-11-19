@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ context.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">
+        <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='example_logo.png') }}" alt=""></a>
+    </div>
+    <div>
+        <div class="dropdown">
+            <a>Ссылки</a>
+            <div class="dropdown-content">
+                <a href="#" target="_blank"><img
+                        src="{{ url_for('static', filename='example_logo.png') }}" alt="">Телеграм</a>
+                <a href="#" target="_blank"><img
+                        src="{{ url_for('static', filename='example_logo.png') }}" alt="">Саппорт</a>
+                <a href="#" target="_blank"><img
+                        src="{{ url_for('static', filename='example_logo.png') }}" alt="">Положение</a>
+
+            </div>
+        </div>
+
+        {% if current_user.get_id() == none %}
+        {% if context.subject == 'Вход' %}
+        <a href="{{ url_for('register_user') }}">Регистрация</a>
+        {% else %}
+        <a href="{{ url_for('login') }}">Вход</a>
+        {% endif %}
+        {% else %}
+        <a class="hidden-nav" href="#">{{ current_user.get_username() }}
+            {% if current_user.get_team_id() != 'None' %}
+            ({{ current_user.get_team_name() }})
+            {% else %}
+            (no team)
+            {% endif %}
+        </a>
+
+
+        <a href="{{ url_for('logout') }}">Выход</a>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="container">
+    <div class="subject">
+        <p>{{ context.subject }}</p>
+    </div>
+
+    {% block form %}
+    {% endblock %}
+
+</div>
+
+</body>
+</html>

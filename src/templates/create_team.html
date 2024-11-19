@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block form %}
+
+{% if current_user.get_team_id() == 'None' %}
+
+<form class="form-block" method="post">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{ form.team_name.label }}
+        {{ form.team_name }}
+    </div>
+    <div class="form-group inline-fields">
+        <div class="form-group">
+            {{ form.team_city.label }}
+            {{ form.team_city }}
+        </div>
+        <div class="form-group">
+            {{ form.team_affiliation.label }}
+            {{ form.team_affiliation }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form.password.label }}
+        {{ form.password }}
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <p class='flash'>{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="buttons-group inline-fields">
+        <div class="h-captcha" data-sitekey="ee7a1e3d-5717-40fd-aea4-afb926d4ae45"></div>
+        <button type="submit">Создать</button>
+
+    </div>
+</form>
+{% else %}
+
+<p>Ты уже состоишь в команде {{ current_user.get_team_name() }}!</p>
+
+{% endif %}
+{% endblock %}
+
+

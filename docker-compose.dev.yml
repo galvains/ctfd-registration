@@ -32,19 +32,6 @@ services:
       timeout: 5s
       retries: 30
 
-  nginx:
-    image: nginx:latest
-    restart: always
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - /etc/letsencrypt/live/path/fullchain.pem:/etc/letsencrypt/live/path/fullchain.pem
-      - /etc/letsencrypt/live/path/privkey.pem:/etc/letsencrypt/live/path/privkey.pem
-    ports:
-      - 80:80
-      - 443:443
-    depends_on:
-      - web
-
 
   adminer:
     image: adminer:latest
@@ -58,4 +45,3 @@ services:
 
 volumes:
   db_data:
-

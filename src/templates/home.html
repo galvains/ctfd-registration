@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block form %}
+
+<div class="big-logo">
+    <img id="big-logo" src="{{ url_for('static', filename='example_logo.png') }}">
+</div>
+
+<div class="info-block">
+
+    <div class="face-text">
+        <p>{{ message }}</p>
+    </div>
+
+    <br>
+
+    <div class="buttons-group buttons-group-center">
+        {% if current_user.get_id() is none %}
+        <a id="reg-link" href="{{ url_for ('register_user') }}">
+            <button>
+                Регистрация
+            </button>
+        </a>
+        {% else %}
+        {% if current_user.get_team_id() == 'None' %}
+        <div class="buttons-group inline-fields change-team">
+            <div class="form-group">
+                <a href="{{ url_for ('create_team') }}">
+                    <button>
+                        Создать команду
+                    </button>
+                </a>
+            </div>
+            <div class="form-group">
+                <a href="{{ url_for ('join_team') }}">
+                    <button>
+                        Присоединиться
+                    </button>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+
+
+

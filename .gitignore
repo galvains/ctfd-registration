@@ -1,5 +1,5 @@
 .env
-config.py
+data
 .DS_Store
 .idea
 venv

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block form %}
+
+<form class="form-block" method="post">
+    {{ form.csrf_token }}
+    <div class="form-group">
+        {{ form.credentials.label }}
+        {{ form.credentials }}
+    </div>
+    <div class="form-group">
+        {{ form.email.label }}
+        {{ form.email }}
+    </div>
+    <div class="form-group inline-fields">
+        <div class="form-group">
+            {{ form.age.label }}
+            {{ form.age }}
+        </div>
+        <div class="form-group">
+            {{ form.website.label }}
+            {{ form.website }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form.password.label }}
+        {{ form.password }}
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <p class='flash'>{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="buttons-group inline-fields">
+        <div class="h-captcha" data-sitekey="ee7a1e3d-5717-40fd-aea4-afb926d4ae45"></div>
+        <button type="submit">Создать</button>
+    </div>
+</form>
+
+{% endblock %}

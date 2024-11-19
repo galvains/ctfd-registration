@@ -1,44 +1,44 @@
-import os
 import re
 import smtplib
 import secrets
+
 import requests
 import string
 import random
+
+from passlib.hash import bcrypt_sha256
+# from celery import Celery
 
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from jinja2 import Environment, FileSystemLoader
 
-SENDER_EMAIL = os.getenv('SENDER_EMAIL')
-SMTP_PORT = int(os.getenv('SMTP_PORT'))
-SMTP_HOST = os.getenv('SMTP_HOST')
-SENDER_PASSWORD = os.getenv('SENDER_PASSWORD')
-CAPTCHA_URL = os.getenv('CAPTCHA_URL')
-CAPTCHA_TOKEN = os.getenv('CAPTCHA_TOKEN')
+from src.config import captcha, mail
+
+SENDER_EMAIL = mail.email
+SMTP_PORT = mail.port
+SMTP_HOST = mail.host
+SENDER_PASSWORD = mail.pwd
+CAPTCHA_URL = captcha.url
+CAPTCHA_TOKEN = captcha.token
 
 alphabet = string.ascii_letters + string.digits
 
 
-def generate_password():
-    return ''.join(secrets.choice(alphabet) for _ in range(16))
+# celery = Celery('mailer')
 
 
-def generate_username():
-    gen = f"user_{''.join(random.choices(string.digits, k=6))}"
-    return gen
+def generate_username() -> str:
+    return f"user_{''.join(secrets.choice(alphabet) for _ in range(4))}{''.join(random.choices(string.digits, k=6))}"
 
 
-def send_email(recipient: str, context: dict, selection: bool) -> None:
+# @celery.task
+def send_email(recipient: str, context: dict) -> None:
     message = MIMEMultipart()
     message["From"] = SENDER_EMAIL
     message["To"] = recipient
-    if selection:
-        message["Subject"] = "Регистрация Quizmine"
-        message.attach(MIMEText(read_html_file('templates/email_registration.html', context), "html"))
-    else:
-        message["Subject"] = "Логин Quizmine"
-        message.attach(MIMEText(read_html_file('templates/email_login.html', context), "html"))
+    message["Subject"] = "Регистрация на Событие"
+    message.attach(MIMEText(read_html_file('src/templates/emails/email_template.html', context), "html"))
 
     with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
         server.starttls()
@@ -63,5 +63,21 @@ def verify_hcaptcha(user_response):
     return result["success"]
 
 
+def hash_password(pwd: str) -> str:
+    return bcrypt_sha256.hash(pwd)
+
+
+def verify_password(plain_pwd: str, hash_pwd: str) -> bool:
+    return bcrypt_sha256.verify(plain_pwd, hash_pwd)
+
+
 def valid_symbols(username: str) -> bool:
     return bool(re.match(r"^[\s\w.@+-]+\Z", username))
+
+
+def valid_telegram_tag(tag: str) -> bool:
+    return bool(re.match(r'^@[a-zA-Z0-9_]{5,}$', tag))
+
+
+def valid_age(age: str) -> bool:
+    return bool(re.match(r'^(120|1[01][0-9]|[1-9]?[0-9])$', age))

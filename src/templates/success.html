@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block form %}
+
+<div class="info-block">
+    <div class="face-text">
+        <p>{{ message }}</p>
+    </div>
+
+    <br>
+    <div class="buttons-group buttons-group-center">
+        <a id="reg-link" href="{{ url_for ('home') }}">
+            <button>
+                На главную
+            </button>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
+
+

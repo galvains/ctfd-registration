@@ -1,0 +1,236 @@
+:root {
+  --var-black: #000;
+  --var-white: #fff;
+  --var-body-fc: #e7e7e7;
+
+  --var-input-bg: #757575;
+  --var-body-gragient-from: #333333;
+  --var-body-gragient-to: #333333;
+
+  --var-button-bg: #007bff;
+  --var-button-bg-hover: #006de3;
+  --var-select-selected-fc: #767676;
+  --var-select-items-bg: #f5f7fa;
+  --var-header-sb: #ff6464;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: linear-gradient(
+    to top,
+    var(--var-body-gragient-from),
+    var(--var-body-gragient-to)
+  );
+  font-family: Lato, sans-serif;
+  color: var(--var-body-fc);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--var-white);
+  padding: 15px 70px;
+}
+
+nav a {
+  color: var(--var-body-fc);
+  margin: 0 25px;
+  text-decoration: none;
+}
+nav a:hover {
+  color: #a2a2a2;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.form-group {
+  column-gap: 10px;
+}
+
+.inline-fields {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.change-team {
+  justify-content: center;
+}
+
+.form-block {
+  width: 600px;
+  max-width: 100%;
+}
+
+.info-block {
+  margin: 3rem 0;
+  width: 600px;
+  max-width: 100%;
+}
+
+.subject {
+  letter-spacing: 2px;
+  padding: 4rem 2rem;
+  font-size: calc(1.1rem + 1.5vw);
+  font-weight: 500;
+  text-align: center;
+}
+
+#big-logo {
+  height: 150px;
+}
+
+.face-text {
+  font-size: 1.3rem;
+  font-weight: 300;
+  text-align: center;
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  color: var(--var-body-fc);
+  padding: 14px;
+  margin-bottom: 1rem !important;
+  margin-top: 0.5rem;
+  box-sizing: border-box;
+  background: transparent;
+  border: 1px solid var(--var-input-bg);
+  border-radius: 0.375rem;
+  font-size: 16px;
+}
+
+input::placeholder {
+  color: var(--var-input-bg); /* Цвет плейсхолдера */
+  font-size: 14px; /* Размер шрифта */
+}
+
+button {
+  background-color: var(--var-button-bg);
+  height: 40px;
+  width: 220px;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.buttons-group {
+  margin-top: 1rem;
+  column-gap: 10px;
+}
+
+.buttons-group-right {
+  display: flex;
+  justify-content: right;
+}
+
+.buttons-group-center{
+  display: flex;
+  justify-content: center;
+}
+
+
+button:hover {
+  background-color: var(--var-button-bg-hover);
+}
+
+.flash {
+  margin: 1rem 0;
+  padding: 14px;
+  border: 1px dashed #ff6464;
+  border-radius: 5px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo img {
+  height: 35px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  padding-top: 10px;
+}
+
+.dropdown-content a {
+  padding: 5px 0;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.dropdown-content img {
+  margin-right: 10px; 
+  height: 15px;
+}
+
+
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+@media (max-width: 1200px) {
+}
+
+@media (max-width: 768px) {
+  .hidden-nav {
+    display: none;
+  }
+
+  nav{
+    padding: 15px 20px;
+  }
+
+  .inline-fields {
+    display: grid;
+    justify-content: stretch;
+    row-gap: 15px;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  #reg-link {
+    width: 100%;
+  }
+
+  .subject {
+    padding: 4rem 0rem;
+  }
+
+}
+
+@media (max-width: 480px) {
+}

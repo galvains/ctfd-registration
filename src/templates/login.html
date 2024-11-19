@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block form %}
+
+    <form class="form-block" method="post">
+        {{ form.csrf_token }}
+
+        <div class="form-group">
+            {{ form.email.label }}
+            {{ form.email }}
+        </div>
+        <div class="form-group">
+            {{ form.password.label }}
+            {{ form.password }}
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <p class='flash'>{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <div class="buttons-group buttons-group-right">
+            <button type="submit">Войти</button>
+        </div>
+    </form>
+
+{% endblock %}
