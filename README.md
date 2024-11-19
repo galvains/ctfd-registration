@@ -30,7 +30,7 @@
 **Клонирование репозитория:**
    
 ```bash
-git clone <ссылка_на_репозиторий>
+git clone https://github.com/galvains/ctfd-registration.git
 ```
 **Установка зависимостей:**
    
